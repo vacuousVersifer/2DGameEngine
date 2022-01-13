@@ -41,7 +41,22 @@ public class Texture {
 
         if(image != null) {
             // Loaded
-            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width.get(0), height.get(0), 0, GL_RGB, GL_UNSIGNED_BYTE, image);
+            int mode = 0;
+            int channelNumber = channels.get(0);
+            switch(channelNumber) {
+                case 3:
+                    mode = GL_RGB;
+                    break;
+                case 4:
+                    mode = GL_RGBA;
+                    break;
+                default:
+                    assert false : "Error: (texture) Unknown number of channels '" + filepath + "'";
+                    break;
+            }
+
+            glTexImage2D(GL_TEXTURE_2D, 0, mode, width.get(0), height.get(0), 0, mode, GL_UNSIGNED_BYTE, image);
+
         } else {
             assert false : "Error: (texture) Could not load image '" + filepath + "'";
         }

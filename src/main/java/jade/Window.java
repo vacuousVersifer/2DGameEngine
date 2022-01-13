@@ -23,9 +23,9 @@ public class Window {
 
     private static Scene currentScene = null;
 
+    public static final int WIDTH = 960, HEIGHT = (WIDTH / 16) * 9;
+
     private Window() {
-        this.width = 960;
-        this.height = (width / 16) * 9;
         this.title = "Mario";
 
         r = 1;
@@ -38,16 +38,18 @@ public class Window {
         switch (newScene) {
             case 0:
                 currentScene = new LevelEditorScene();
+                currentScene.init();
+                currentScene.start();
                 break;
             case 1:
                 currentScene = new LevelScene();
+                currentScene.init();
+                currentScene.start();
                 break;
             default:
                 assert false : "Unknown scene '" + newScene + "'";
                 break;
         }
-
-        currentScene.init();
     }
 
     public static Window get() {
@@ -89,7 +91,7 @@ public class Window {
         glfwWindowHint(GLFW_MAXIMIZED, GLFW_FALSE);
 
         // Create the window
-        glfwWindow = glfwCreateWindow(this.width, this.height, this.title, NULL, NULL);
+        glfwWindow = glfwCreateWindow(WIDTH, HEIGHT, this.title, NULL, NULL);
 
         if(glfwWindow == NULL) {
             throw new IllegalStateException("Failed to create the GLFW window. ");
@@ -136,5 +138,9 @@ public class Window {
             dt = endTime - beginTime;
             beginTime = endTime;
         }
+    }
+
+    public static Scene getScene() {
+        return get().currentScene;
     }
 }
