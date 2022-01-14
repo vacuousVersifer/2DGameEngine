@@ -4,6 +4,7 @@ import renderer.Shader;
 import renderer.Texture;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class AssetPool {
         if(AssetPool.textures.containsKey(file.getAbsolutePath())) {
             return AssetPool.textures.get(file.getAbsolutePath());
         } else {
+
             Texture texture = new Texture(resourceName);
             AssetPool.textures.put(file.getAbsolutePath(), texture);
             return texture;

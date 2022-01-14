@@ -84,7 +84,7 @@ public class RenderBatch {
         glVertexAttribPointer(1, COLOR_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, COLOR_OFFSET);
         glEnableVertexAttribArray(1);
 
-        glVertexAttribPointer(2, TEX_COORDS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEX_COORDS_SIZE);
+        glVertexAttribPointer(2, TEX_COORDS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEX_COORDS_OFFSET);
         glEnableVertexAttribArray(2);
 
         glVertexAttribPointer(3, TEX_ID_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEX_ID_OFFSET);
@@ -122,7 +122,7 @@ public class RenderBatch {
         shader.uploadMat4f("uView", Window.getScene().camera().getViewMatrix());
 
         for(int i = 0; i < textures.size(); i++) {
-            glActiveTexture(GL_TEXTURE + i + 1);
+            glActiveTexture(GL_TEXTURE0 + i + 1);
             textures.get(i).bind();
         };
 
