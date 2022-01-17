@@ -179,8 +179,8 @@ public class RenderBatch implements Comparable<RenderBatch> {
                 yAdd = 0.5f;
             }
 
-            Vector2f goPosition = sprite.gameObject.getTransform().getPosition();
-            Vector2f goScale = sprite.gameObject.getTransform().getScale();
+            Vector2f goPosition = sprite.getGameObject().getTransform().getPosition();
+            Vector2f goScale = sprite.getGameObject().getTransform().getScale();
             float x = goPosition.x + (xAdd * goScale.x);
             float y = goPosition.y + (yAdd * goScale.y);
             Vector4f currentPos = new Vector4f(x, y, 0, 1);

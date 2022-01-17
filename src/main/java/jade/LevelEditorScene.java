@@ -29,12 +29,6 @@ public class LevelEditorScene extends Scene {
                 AssetPool.getTexture("assets/images/blendImage1.png")
         )));
         this.addGameObjectToScene(obj1);
-
-
-
-
-
-
     }
 
     private void loadResources() {

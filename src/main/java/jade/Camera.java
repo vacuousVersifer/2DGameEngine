@@ -6,7 +6,7 @@ import org.joml.Vector3f;
 
 public class Camera {
     private Matrix4f projectionMatrix, viewMatrix;
-    public Vector2f position;
+    private Vector2f position;
 
     public Camera(Vector2f position) {
         this.position = position;
@@ -33,6 +33,10 @@ public class Camera {
 
     public Matrix4f getProjectionMatrix() {
         return this.projectionMatrix;
+    }
+
+    public Vector2f getPosition() {
+        return this.position;
     }
 }
 

@@ -1,5 +1,7 @@
 package jade;
 
+import org.joml.Vector4f;
+import org.joml.Vector4i;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -18,21 +20,16 @@ public class Window {
     private final String title;
     private long glfwWindow;
 
-    public float r, g, b, a;
-
+    private final Vector4f color;
     private static Window window = null;
-
     private static Scene currentScene = null;
 
-    public static final int WIDTH = 960, HEIGHT = (WIDTH / 16) * 9;
+    private static final int WIDTH = 960, HEIGHT = (WIDTH / 16) * 9;
 
     private Window() {
         this.title = "Mario";
 
-        r = 1;
-        g = 1;
-        b = 1;
-        a = 1;
+        color = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public static void changeScene(int newScene) {
@@ -129,6 +126,10 @@ public class Window {
             // Poll events
             glfwPollEvents();
 
+            float r = color.x;
+            float g = color.y;
+            float b = color.z;
+            float a = color.w;
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
