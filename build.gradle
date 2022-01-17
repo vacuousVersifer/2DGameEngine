@@ -6,20 +6,25 @@ version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.13
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+ext {
+    lwjglVersion = "3.2.3"
+    imguiVersion = '1.76-0.9'
+    jomlVersion = "1.10.2"
+
+    lwjglNatives = "natives-linux"
 }
 
-project.ext.lwjglVersion = "3.2.3"
-project.ext.jomlVersion = "1.10.2"
-project.ext.lwjglNatives = "natives-linux"
-
 repositories {
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
+    // Tests
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+
+    // LWJGL
     implementation platform("org.lwjgl:lwjgl-bom:$lwjglVersion")
 
     implementation "org.lwjgl:lwjgl"
@@ -29,6 +34,7 @@ dependencies {
     implementation "org.lwjgl:lwjgl-openal"
     implementation "org.lwjgl:lwjgl-opengl"
     implementation "org.lwjgl:lwjgl-stb"
+
     runtimeOnly "org.lwjgl:lwjgl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-assimp::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-glfw::$lwjglNatives"
@@ -36,5 +42,13 @@ dependencies {
     runtimeOnly "org.lwjgl:lwjgl-openal::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-opengl::$lwjglNatives"
     runtimeOnly "org.lwjgl:lwjgl-stb::$lwjglNatives"
+
+    // JOML
     implementation "org.joml:joml:1.10.2"
+
+    // ImGui
+    implementation "io.imgui.java:binding:$imguiVersion"
+    implementation "io.imgui.java:lwjgl3:$imguiVersion"
+
+    runtimeOnly "io.imgui.java:natives-linux:$imguiVersion"
 }

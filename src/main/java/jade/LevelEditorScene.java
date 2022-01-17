@@ -56,6 +56,8 @@ public class LevelEditorScene extends Scene {
             go.update(dt);
         }
 
+        System.out.println("FPS: " + (int) (1 / dt));
+
         this.renderer.render();
     }
 }

@@ -19,6 +19,7 @@ public class Window {
     private int width, height;
     private final String title;
     private long glfwWindow;
+    private ImGuiLayer imGuiLayer;
 
     private final Vector4f color;
     private static Window window = null;
@@ -113,6 +114,8 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        this.imGuiLayer = new ImGuiLayer(glfwWindow);
+        this.imGuiLayer.initImGui();
 
         Window.changeScene(0);
     }
@@ -137,6 +140,7 @@ public class Window {
                 currentScene.update(dt);
             }
 
+            this.imGuiLayer.update(dt);
             glfwSwapBuffers(glfwWindow);
 
             endTime = Time.getTime();
@@ -148,5 +152,13 @@ public class Window {
     public static Scene getScene() {
         get();
         return currentScene;
+    }
+
+    public static int getWidth() {
+        return get().width;
+    }
+
+    public static int getHeight() {
+        return get().height;
     }
 }
