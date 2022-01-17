@@ -1,16 +1,15 @@
 package jade;
 
-import components.Sprite;
 import components.SpriteRenderer;
 import components.SpriteSheet;
 import org.joml.Vector2f;
-import org.joml.Vector4f;
-import renderer.Shader;
-import renderer.Texture;
 import util.AssetPool;
 import util.Constants;
 
 public class LevelEditorScene extends Scene {
+    private GameObject mario;
+    private SpriteSheet sprites;
+
     public LevelEditorScene() {}
 
     @Override
@@ -19,9 +18,9 @@ public class LevelEditorScene extends Scene {
 
         this.camera = new Camera(new Vector2f(-250,0));
 
-        SpriteSheet sprites = AssetPool.getSpriteSheet(Constants.DEFAULT_SPRITESHEET_PATH);
+        sprites = AssetPool.getSpriteSheet(Constants.DEFAULT_SPRITESHEET_PATH);
 
-        GameObject mario = new GameObject("Mario", new Transform(new Vector2f(100, 100), new Vector2f(125, 125)));
+        mario = new GameObject("Mario", new Transform(new Vector2f(100, 400), new Vector2f(125, 125)));
         mario.addComponent(new SpriteRenderer(sprites.getSprite(Constants.MARIO_WALK_1)));
         this.addGameObjectToScene(mario);
 
@@ -37,9 +36,22 @@ public class LevelEditorScene extends Scene {
         AssetPool.addSpriteSheet(Constants.DEFAULT_SPRITESHEET_PATH, Constants.DEFAULT_SPRITESHEET);
     }
 
+    private int spriteIndex = 0;
+    private float spriteFlipTimeLeft = 0.0f;
+
     @Override
     public void update(float dt) {
-        System.out.println("FPS: " + (1 / dt));
+        mario.transform.getPosition().x += 150 * dt;
+        spriteFlipTimeLeft -= dt;
+        if(spriteFlipTimeLeft <= 0) {
+            spriteFlipTimeLeft = 0.15f;
+            spriteIndex++;
+            if(spriteIndex > 3) {
+                spriteIndex = 0;
+            }
+            mario.getComponent(SpriteRenderer.class).setSprite(sprites.getSprite(spriteIndex));
+        }
+
         for(GameObject go : this.gameObjects) {
             go.update(dt);
         }

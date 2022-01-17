@@ -1,13 +1,16 @@
 package components;
 
 import jade.Component;
+import jade.Transform;
 import org.joml.Vector2f;
 import org.joml.Vector4f;
 import renderer.Texture;
 
 public class SpriteRenderer extends Component {
-    private Vector4f color;
+    private final Vector4f color;
     private Sprite sprite;
+    private Transform lastTransform;
+    private boolean dirty = false;
 
     public SpriteRenderer(Vector4f color) {
         this.color = color;
@@ -21,10 +24,15 @@ public class SpriteRenderer extends Component {
 
     @Override
     public void start() {
+        this.lastTransform = gameObject.transform.copy();
     }
 
     @Override
     public void update(float dt) {
+        if(!this.lastTransform.equals(this.gameObject.transform)) {
+            this.gameObject.transform.copy(this.lastTransform);
+            this.dirty = true;
+        }
     }
 
     public Vector4f getColor() {
@@ -37,5 +45,25 @@ public class SpriteRenderer extends Component {
 
     public Vector2f[] getTexCoords() {
         return sprite.getTexCoords();
+    }
+
+    public void setColor(Vector4f color) {
+        if(!this.color.equals(color)) {
+            this.color.set(color);
+            this.dirty = true;
+        }
+    }
+
+    public void setSprite(Sprite sprite) {
+        this.sprite = sprite;
+        this.dirty = true;
+    }
+
+    public boolean isDirty() {
+        return this.dirty;
+    }
+
+    public void setClean() {
+        this.dirty = false;
     }
 }

@@ -1,9 +1,7 @@
 package renderer;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL;
 
-import java.nio.Buffer;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 
@@ -11,13 +9,10 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.stb.STBImage.*;
 
 public class Texture {
-    private String filepath;
-    private int texID;
+    private final int texID;
     private int width, height;
 
     public Texture(String filepath) {
-        this.filepath = filepath;
-
         // Generate texture on GPU
         texID = glGenTextures();
         glBindTexture(GL_TEXTURE_2D, texID);

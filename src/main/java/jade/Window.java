@@ -5,6 +5,8 @@ import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import util.Time;
 
+import java.util.Objects;
+
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
 import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
@@ -14,7 +16,7 @@ import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
     private int width, height;
-    private String title;
+    private final String title;
     private long glfwWindow;
 
     public float r, g, b, a;
@@ -72,7 +74,7 @@ public class Window {
 
         // Terminate GLFW / Free Error Callback
         glfwTerminate();
-        glfwSetErrorCallback(null).free();
+        Objects.requireNonNull(Objects.requireNonNull(glfwSetErrorCallback(null))).free();
     }
 
     public void init() {
@@ -141,6 +143,7 @@ public class Window {
     }
 
     public static Scene getScene() {
-        return get().currentScene;
+        get();
+        return currentScene;
     }
 }
