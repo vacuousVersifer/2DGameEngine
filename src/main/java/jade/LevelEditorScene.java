@@ -14,9 +14,13 @@ public class LevelEditorScene extends Scene {
     public void init() {
         this.camera = new Camera(new Vector2f(-250,0));
 
-        GameObject obj = new GameObject("Mario", new Transform(new Vector2f(100, 100), new Vector2f(256, 256)));
-        obj.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage.png")));
-        this.addGameObjectToScene(obj);
+        GameObject mario = new GameObject("Mario", new Transform(new Vector2f(100, 100), new Vector2f(125, 125)));
+        mario.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage.png")));
+        this.addGameObjectToScene(mario);
+
+        GameObject goomba = new GameObject("Goomba", new Transform(new Vector2f(300, 100), new Vector2f(125, 125)));
+        goomba.addComponent(new SpriteRenderer(AssetPool.getTexture("assets/images/testImage2.png")));
+        this.addGameObjectToScene(goomba);
 
         loadResources();
     }
