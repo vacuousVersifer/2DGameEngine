@@ -15,22 +15,24 @@ public class SpriteRenderer extends Component {
     public SpriteRenderer(Vector4f color) {
         this.color = color;
         this.sprite = new Sprite(null);
+        this.dirty = true;
     }
 
     public SpriteRenderer(Sprite sprite) {
         this.sprite = sprite;
         this.color = new Vector4f(1, 1, 1, 1);
+        this.dirty = true;
     }
 
     @Override
     public void start() {
-        this.lastTransform = gameObject.transform.copy();
+        this.lastTransform = gameObject.getTransform().copy();
     }
 
     @Override
     public void update(float dt) {
-        if(!this.lastTransform.equals(this.gameObject.transform)) {
-            this.gameObject.transform.copy(this.lastTransform);
+        if(!this.lastTransform.equals(this.gameObject.getTransform())) {
+            this.gameObject.getTransform().copy(this.lastTransform);
             this.dirty = true;
         }
     }

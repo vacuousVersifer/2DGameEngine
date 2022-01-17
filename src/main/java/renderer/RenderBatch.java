@@ -13,7 +13,7 @@ import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.glBindVertexArray;
 import static org.lwjgl.opengl.GL30.glGenVertexArrays;
 
-public class RenderBatch {
+public class RenderBatch implements Comparable<RenderBatch> {
     // Vertex
     // ======
     // Pos               Color                         tex coords     tex id
@@ -21,7 +21,7 @@ public class RenderBatch {
     private final int POS_SIZE = 2;
     private final int COLOR_SIZE = 4;
     private final int TEX_COORDS_SIZE = 2;
-    // private final int TEX_ID_SIZE = 1;
+    private final int TEX_ID_SIZE = 1;
 
     private final int POS_OFFSET = 0;
     private final int COLOR_OFFSET = POS_OFFSET + POS_SIZE * Float.BYTES;
@@ -40,13 +40,15 @@ public class RenderBatch {
     private int vaoID, vboID;
     private final int maxBatchSize;
     private final Shader shader;
+    private int zIndex;
 
-    public RenderBatch(int maxBatchSize) {
+    public RenderBatch(int maxBatchSize, int zIndex) {
         shader = AssetPool.getShader("assets/shaders/default.glsl");
 
         this.sprites = new SpriteRenderer[maxBatchSize];
 
         this.maxBatchSize = maxBatchSize;
+        this.zIndex = zIndex;
 
         // 4 Vertices Quad
         vertices = new float[maxBatchSize * 4 * VERTEX_SIZE];
@@ -73,7 +75,6 @@ public class RenderBatch {
         glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices, GL_STATIC_DRAW);
 
         // Enable the buffer attribute pointers
-        int VERTEX_SIZE_BYTES = VERTEX_SIZE * Float.BYTES;
         glVertexAttribPointer(0, POS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, POS_OFFSET);
         glEnableVertexAttribArray(0);
 
@@ -83,8 +84,6 @@ public class RenderBatch {
         glVertexAttribPointer(2, TEX_COORDS_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEX_COORDS_OFFSET);
         glEnableVertexAttribArray(2);
 
-        int TEX_ID_SIZE = 1;
-        int TEX_ID_OFFSET = TEX_COORDS_OFFSET + TEX_COORDS_SIZE * Float.BYTES;
         glVertexAttribPointer(3, TEX_ID_SIZE, GL_FLOAT, false, VERTEX_SIZE_BYTES, TEX_ID_OFFSET);
         glEnableVertexAttribArray(3);
     }
@@ -180,9 +179,11 @@ public class RenderBatch {
                 yAdd = 0.5f;
             }
 
-            Vector4f currentPos = new Vector4f(sprite.gameObject.transform.getPosition().x + (xAdd * sprite.gameObject.transform.getScale().x),
-                    sprite.gameObject.transform.getPosition().y + (yAdd * sprite.gameObject.transform.getScale().y),
-                    0, 1);
+            Vector2f goPosition = sprite.gameObject.getTransform().getPosition();
+            Vector2f goScale = sprite.gameObject.getTransform().getScale();
+            float x = goPosition.x + (xAdd * goScale.x);
+            float y = goPosition.y + (yAdd * goScale.y);
+            Vector4f currentPos = new Vector4f(x, y, 0, 1);
 
             // Load position
             vertices[offset] = currentPos.x;
@@ -241,6 +242,15 @@ public class RenderBatch {
 
     public boolean hasTexture(Texture tex) {
         return this.textures.contains(tex);
+    }
+
+    public int getzIndex() {
+        return zIndex;
+    }
+
+    @Override
+    public int compareTo(RenderBatch o) {
+        return Integer.compare(this.getzIndex(), o.getzIndex());
     }
 }
 
