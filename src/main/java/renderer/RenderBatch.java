@@ -199,10 +199,6 @@ public class RenderBatch {
         }
     }
 
-    public boolean hasRoom() {
-        return hasRoom;
-    }
-
     private int[] generateIndices() {
         // 6 indices per quad (3 per triangle)
         int[] elements = new int[6 * maxBatchSize];
@@ -227,6 +223,18 @@ public class RenderBatch {
         elements[offsetArrayIndex + 3] = offset + 0;
         elements[offsetArrayIndex + 4] = offset + 2;
         elements[offsetArrayIndex + 5] = offset + 1;
+    }
+
+    public boolean hasRoom() {
+        return hasRoom;
+    }
+
+    public boolean hasTextureRoom() {
+        return this.textures.size() < 8;
+    }
+
+    public boolean hasTexture(Texture tex) {
+        return this.textures.contains(tex);
     }
 }
 
