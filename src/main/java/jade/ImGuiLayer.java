@@ -9,11 +9,13 @@ import imgui.enums.ImGuiKey;
 import imgui.enums.ImGuiMouseCursor;
 import imgui.gl3.ImGuiImplGl3;
 
+import java.util.Arrays;
+
 import static org.lwjgl.glfw.GLFW.*;
 
 public class ImGuiLayer {
 
-    private long glfwWindow;
+    private final long glfwWindow;
 
     // Mouse cursors provided by GLFW
     private final long[] mouseCursors = new long[ImGuiMouseCursor.COUNT];
@@ -183,7 +185,8 @@ public class ImGuiLayer {
         // Method initializes LWJGL3 renderer.
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
         // ImGui context should be created as well.
-        imGuiGl3.init("#version 330 core");
+        imGuiGl3.init("#version 430 core");
+        System.out.println("Initted!");
     }
 
     public void update(float dt) {

@@ -114,10 +114,13 @@ public class Window {
 
         glEnable(GL_BLEND);
         glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
         this.imGuiLayer = new ImGuiLayer(glfwWindow);
         this.imGuiLayer.initImGui();
 
         Window.changeScene(0);
+
+
     }
 
     public void loop() {
@@ -155,10 +158,12 @@ public class Window {
     }
 
     public static int getWidth() {
-        return get().width;
+        get();
+        return WIDTH;
     }
 
     public static int getHeight() {
-        return get().height;
+        get();
+        return HEIGHT;
     }
 }

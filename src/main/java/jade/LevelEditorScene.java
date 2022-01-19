@@ -20,13 +20,13 @@ public class LevelEditorScene extends Scene {
 
         GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(300, 400), new Vector2f(125, 125)), 1);
         obj2.addComponent(new SpriteRenderer(new Sprite(
-                AssetPool.getTexture("assets/images/blendImage2.png")
+                AssetPool.getTexture("assets/images/testImage.png")
         )));
         this.addGameObjectToScene(obj2);
 
         GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 400), new Vector2f(125, 125)), 2);
         obj1.addComponent(new SpriteRenderer(new Sprite(
-                AssetPool.getTexture("assets/images/blendImage1.png")
+                AssetPool.getTexture("assets/images/testImage2.png")
         )));
         this.addGameObjectToScene(obj1);
     }
@@ -56,7 +56,7 @@ public class LevelEditorScene extends Scene {
             go.update(dt);
         }
 
-        System.out.println("FPS: " + (int) (1 / dt));
+//        System.out.println("FPS: " + (int) (1 / dt));
 
         this.renderer.render();
     }
