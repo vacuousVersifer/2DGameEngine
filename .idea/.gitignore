@@ -4,4 +4,4 @@
 /vcs.xml
 /.gradle/
 /build/
-build.gradle
+../build.gradle
