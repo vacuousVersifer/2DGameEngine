@@ -16,24 +16,24 @@ public class LevelEditorScene extends Scene {
 
         this.camera = new Camera(new Vector2f(-250,0));
 
-        SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheet.png");
-
-        GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(300, 400), new Vector2f(125, 125)), 1);
-        obj2.addComponent(new SpriteRenderer(new Sprite(
-                AssetPool.getTexture("assets/images/testImage.png")
-        )));
-        this.addGameObjectToScene(obj2);
+        SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheets/marioAndGoomba.png");
 
         GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 400), new Vector2f(125, 125)), 2);
         obj1.addComponent(new SpriteRenderer(new Sprite(
-                AssetPool.getTexture("assets/images/testImage2.png")
+                AssetPool.getTexture("assets/images/sprites/blendGreen.png")
         )));
         this.addGameObjectToScene(obj1);
+
+        GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(300, 400), new Vector2f(125, 125)), 1);
+        obj2.addComponent(new SpriteRenderer(new Sprite(
+                AssetPool.getTexture("assets/images/sprites/blendRed.png")
+        )));
+        this.addGameObjectToScene(obj2);
     }
 
     private void loadResources() {
         AssetPool.getShader("assets/shaders/default.glsl");
-        AssetPool.addSpriteSheet("assets/images/spritesheet.png", new SpriteSheet(AssetPool.getTexture("assets/images/spritesheet.png"), 16, 16, 24, 0));
+        AssetPool.addSpriteSheet("assets/images/spritesheets/marioAndGoomba.png", new SpriteSheet(AssetPool.getTexture("assets/images/spritesheets/marioAndGoomba.png"), 16, 16, 24, 0));
     }
 
 //    private int spriteIndex = 0;

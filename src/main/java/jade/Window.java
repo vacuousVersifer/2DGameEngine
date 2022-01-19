@@ -25,7 +25,7 @@ public class Window {
     private static Window window = null;
     private static Scene currentScene = null;
 
-    private static final int WIDTH = 960, HEIGHT = (WIDTH / 16) * 9;
+    private static final int WIDTH = 1200, HEIGHT = (WIDTH / 16) * 9;
 
     private Window() {
         this.title = "Mario";
@@ -100,6 +100,9 @@ public class Window {
         glfwSetMouseButtonCallback(glfwWindow, MouseListener::mouseButtonCallback);
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
+        glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
+
+        });
 
         // Make the OpenGL context current
         glfwMakeContextCurrent(glfwWindow);
