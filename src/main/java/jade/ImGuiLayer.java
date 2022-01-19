@@ -186,7 +186,6 @@ public class ImGuiLayer {
         // This method SHOULD be called after you've initialized your ImGui configuration (fonts and so on).
         // ImGui context should be created as well.
         imGuiGl3.init("#version 430 core");
-        System.out.println("Initted!");
     }
 
     public void update(float dt) {
