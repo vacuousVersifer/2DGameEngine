@@ -2,6 +2,6 @@
 /shelf/
 /workspace.xml
 /vcs.xml
-/.gradle/
-/build/
+../.gradle/
+../build/
 ../build.gradle
