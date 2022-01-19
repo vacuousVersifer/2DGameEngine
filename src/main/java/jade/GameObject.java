@@ -4,20 +4,24 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameObject {
-    private String name;
-    private List<Component> components;
-    public Transform transform;
+    private final String name;
+    private final List<Component> components;
+    private final Transform transform;
+    private int zIndex;
 
     public GameObject(String name) {
         this.name = name;
-        this.components = new ArrayList<Component>();
+        this.zIndex = 0;
+        this.components = new ArrayList<>();
         this.transform = new Transform();
     }
 
-    public GameObject(String name, Transform transform) {
+    public GameObject(String name, Transform transform, int zIndex) {
         this.name = name;
-        this.components = new ArrayList<Component>();
+        this.zIndex = zIndex;
+        this.components = new ArrayList<>();
         this.transform = transform;
+
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -60,5 +64,13 @@ public class GameObject {
         for (Component component : components) {
             component.start();
         }
+    }
+
+    public Transform getTransform() {
+        return this.transform;
+    }
+
+    public int getzIndex() {
+        return this.zIndex;
     }
 }

@@ -1,37 +1,36 @@
 package jade;
 
+import org.joml.Vector4f;
+import org.joml.Vector4i;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
 import util.Time;
 
+import java.util.Objects;
+
 import static org.lwjgl.glfw.Callbacks.glfwFreeCallbacks;
 import static org.lwjgl.glfw.GLFW.*;
-import static org.lwjgl.opengl.GL11.GL_COLOR_BUFFER_BIT;
-import static org.lwjgl.opengl.GL11.glClearColor;
+import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL11C.glClear;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
     private int width, height;
-    private String title;
+    private final String title;
     private long glfwWindow;
+    private ImGuiLayer imGuiLayer;
 
-    public float r, g, b, a;
-
+    private final Vector4f color;
     private static Window window = null;
-
     private static Scene currentScene = null;
 
-    public static final int WIDTH = 960, HEIGHT = (WIDTH / 16) * 9;
+    private static final int WIDTH = 960, HEIGHT = (WIDTH / 16) * 9;
 
     private Window() {
         this.title = "Mario";
 
-        r = 0;
-        g = 0;
-        b = 0;
-        a = 1;
+        color = new Vector4f(1.0f, 1.0f, 1.0f, 1.0f);
     }
 
     public static void changeScene(int newScene) {
@@ -72,7 +71,7 @@ public class Window {
 
         // Terminate GLFW / Free Error Callback
         glfwTerminate();
-        glfwSetErrorCallback(null).free();
+        Objects.requireNonNull(Objects.requireNonNull(glfwSetErrorCallback(null))).free();
     }
 
     public void init() {
@@ -113,6 +112,11 @@ public class Window {
 
         GL.createCapabilities();
 
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+        this.imGuiLayer = new ImGuiLayer(glfwWindow);
+        this.imGuiLayer.initImGui();
+
         Window.changeScene(0);
     }
 
@@ -125,6 +129,10 @@ public class Window {
             // Poll events
             glfwPollEvents();
 
+            float r = color.x;
+            float g = color.y;
+            float b = color.z;
+            float a = color.w;
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
@@ -132,6 +140,7 @@ public class Window {
                 currentScene.update(dt);
             }
 
+            this.imGuiLayer.update(dt);
             glfwSwapBuffers(glfwWindow);
 
             endTime = Time.getTime();
@@ -141,6 +150,15 @@ public class Window {
     }
 
     public static Scene getScene() {
-        return get().currentScene;
+        get();
+        return currentScene;
+    }
+
+    public static int getWidth() {
+        return get().width;
+    }
+
+    public static int getHeight() {
+        return get().height;
     }
 }
