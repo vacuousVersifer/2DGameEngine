@@ -1,7 +1,5 @@
-# Default ignored files
 /shelf/
 /workspace.xml
 /vcs.xml
 ../.gradle/
 ../build/
-../build.gradle
