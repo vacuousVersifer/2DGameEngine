@@ -7,7 +7,7 @@ public class GameObject {
     private final String name;
     private final List<Component> components;
     private final Transform transform;
-    private int zIndex;
+    private final int zIndex;
 
     public GameObject(String name) {
         this.name = name;
@@ -22,6 +22,11 @@ public class GameObject {
         this.components = new ArrayList<>();
         this.transform = transform;
 
+    }
+
+    public void addComponent(Component c) {
+        this.components.add(c);
+        c.gameObject = this;
     }
 
     public <T extends Component> T getComponent(Class<T> componentClass) {
@@ -49,20 +54,21 @@ public class GameObject {
         }
     }
 
-    public void addComponent(Component c) {
-        this.components.add(c);
-        c.gameObject = this;
-    }
-
     public void update(float dt) {
-        for (Component component : components) {
-            component.update(dt);
+        for (Component c : components) {
+            c.update(dt);
         }
     }
 
     public void start() {
-        for (Component component : components) {
-            component.start();
+        for (Component c : components) {
+            c.start();
+        }
+    }
+
+    public void imgui() {
+        for(Component c : components) {
+            c.imgui();
         }
     }
 

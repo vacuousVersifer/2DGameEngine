@@ -1,7 +1,6 @@
 package jade;
 
 import org.joml.Vector4f;
-import org.joml.Vector4i;
 import org.lwjgl.Version;
 import org.lwjgl.glfw.GLFWErrorCallback;
 import org.lwjgl.opengl.GL;
@@ -16,7 +15,6 @@ import static org.lwjgl.opengl.GL11C.glClear;
 import static org.lwjgl.system.MemoryUtil.NULL;
 
 public class Window {
-    private int width, height;
     private final String title;
     private long glfwWindow;
     private ImGuiLayer imGuiLayer;
@@ -25,7 +23,8 @@ public class Window {
     private static Window window = null;
     private static Scene currentScene = null;
 
-    private static final int WIDTH = 1200, HEIGHT = (WIDTH / 16) * 9;
+    private static int WIDTH = 1200;
+    private static int HEIGHT = (WIDTH / 16) * 9;
 
     private Window() {
         this.title = "Mario";
@@ -101,7 +100,8 @@ public class Window {
         glfwSetScrollCallback(glfwWindow, MouseListener::mouseScrollCallback);
         glfwSetKeyCallback(glfwWindow, KeyListener::keyCallback);
         glfwSetWindowSizeCallback(glfwWindow, (w, newWidth, newHeight) -> {
-
+            Window.setWidth(newWidth);
+            Window.setHeight(newHeight);
         });
 
         // Make the OpenGL context current
@@ -146,7 +146,7 @@ public class Window {
                 currentScene.update(dt);
             }
 
-            this.imGuiLayer.update(dt);
+            this.imGuiLayer.update(dt, currentScene);
             glfwSwapBuffers(glfwWindow);
 
             endTime = Time.getTime();
@@ -168,5 +168,15 @@ public class Window {
     public static int getHeight() {
         get();
         return HEIGHT;
+    }
+
+    public static void setWidth(int newWidth) {
+        get();
+        WIDTH = newWidth;
+    }
+
+    public static void setHeight(int newHeight) {
+        get();
+        HEIGHT = newHeight;
     }
 }
