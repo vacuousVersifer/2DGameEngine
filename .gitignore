@@ -1,0 +1,7 @@
+/build/
+/.gradle/
+/imgui.ini
+
+/.idea/shelf/
+/.idea/workspace.xml
+/.idea/vcs.xml
