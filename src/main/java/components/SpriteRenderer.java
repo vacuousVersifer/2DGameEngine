@@ -38,14 +38,14 @@ public class SpriteRenderer extends Component {
         }
     }
 
-    @Override
-    public void imgui() {
-        float[] imColor = {color.x, color.y, color.z, color.w};
-        if(ImGui.colorPicker4("Color Picker: ", imColor)) {
-            this.setColor(new Vector4f(imColor[0], imColor[1], imColor[2], 1));
-            this.dirty = true;
-        }
-    }
+//    @Override
+//    public void imgui() {
+//        float[] imColor = {color.x, color.y, color.z, color.w};
+//        if(ImGui.colorPicker4("Color Picker: ", imColor)) {
+//            this.setColor(new Vector4f(imColor[0], imColor[1], imColor[2], 1));
+//            this.dirty = true;
+//        }
+//    }
 
     public Vector4f getColor() {
         return this.color;

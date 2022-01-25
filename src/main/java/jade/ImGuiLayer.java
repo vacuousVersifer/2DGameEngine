@@ -157,14 +157,13 @@ public class ImGuiLayer {
     }
 
     public void update(float dt, Scene currentScene) {
-        startFrame(dt);
+//        startFrame(dt);
 
-        ImGui.newFrame();
-        currentScene.sceneImGui();
-        ImGui.showDemoWindow();
-        ImGui.render();
+//        ImGui.newFrame();
+//        currentScene.sceneImGui();
+//        ImGui.render();
 
-        endFrame();
+//        endFrame();
     }
 
     private void startFrame(final float deltaTime) {
