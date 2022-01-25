@@ -11,7 +11,7 @@ ext {
     imguiVersion = '1.76-0.9'
     jomlVersion = "1.10.2"
 
-    lwjglNatives = "natives-linux"
+    lwjglNatives = "natives-windows"
 }
 
 repositories {

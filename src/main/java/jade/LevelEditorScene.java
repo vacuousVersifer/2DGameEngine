@@ -22,23 +22,42 @@ public class LevelEditorScene extends Scene {
 
         SpriteSheet sprites = AssetPool.getSpriteSheet("assets/images/spritesheets/marioAndGoomba.png");
 
-        GameObject obj1 = new GameObject("Object 1", new Transform(new Vector2f(200, 400), new Vector2f(125, 125)), 2);
-        obj1.addComponent(new SpriteRenderer(
-                sprites.getSprite(0) //new Vector4f(1, 0, 0, 1)
-        ));
-        this.addGameObjectToScene(obj1);
+        Transform marioTransform = new Transform(new Vector2f(200, 400), new Vector2f(125, 125));
+        int marioZIndex = 2;
 
-        GameObject obj2 = new GameObject("Object 2", new Transform(new Vector2f(300, 400), new Vector2f(125, 125)), 1);
-        obj2.addComponent(new SpriteRenderer(
-                sprites.getSprite(15)
-        ));
-        this.addGameObjectToScene(obj2);
+        GameObject mario = new GameObject("Mario", marioTransform, marioZIndex);
 
-        this.activeGameObject = obj1;
+        SpriteRenderer marioSpriteRenderer = new SpriteRenderer();
+        Sprite marioSprite = new Sprite();
+        marioSprite.setTexture(AssetPool.getTexture("assets/images/sprites/mario.png"));
+        marioSpriteRenderer.setSprite(marioSprite);
+        mario.addComponent(marioSpriteRenderer);
+
+        this.addGameObjectToScene(mario);
+
+        Transform goombaTransform = new Transform(new Vector2f(600, 400), new Vector2f(125, 125));
+        int goombaZIndex = 1;
+
+        GameObject goomba = new GameObject("Goomba", goombaTransform, goombaZIndex);
+
+        SpriteRenderer goombaSpriteRenderer = new SpriteRenderer();
+        Sprite goombaSprite = new Sprite();
+        goombaSprite.setTexture(AssetPool.getTexture("assets/images/sprites/goomba.png"));
+        goombaSpriteRenderer.setSprite(goombaSprite);
+        goomba.addComponent(goombaSpriteRenderer);
+
+        this.addGameObjectToScene(goomba);
+
+        this.activeGameObject = mario;
 
         Gson gson = new GsonBuilder()
                 .setPrettyPrinting()
                 .create();
+
+        String serialized = gson.toJson(mario);
+        GameObject obj = gson.fromJson(serialized, GameObject.class);
+        System.out.println(serialized);
+        System.out.println(obj);
     }
 
     private void loadResources() {

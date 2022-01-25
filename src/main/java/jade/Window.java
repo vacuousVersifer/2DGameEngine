@@ -23,7 +23,7 @@ public class Window {
     private static Window window = null;
     private static Scene currentScene = null;
 
-    private static int WIDTH = 1200;
+    private static int WIDTH = 600;
     private static int HEIGHT = (WIDTH / 16) * 9;
 
     private Window() {
@@ -142,12 +142,11 @@ public class Window {
             glClearColor(r, g, b, a);
             glClear(GL_COLOR_BUFFER_BIT);
 
-            if(dt >= 0) {
+            if(dt > 0) {
                 currentScene.update(dt);
+                this.imGuiLayer.update(dt, currentScene);
+                glfwSwapBuffers(glfwWindow);
             }
-
-            this.imGuiLayer.update(dt, currentScene);
-            glfwSwapBuffers(glfwWindow);
 
             endTime = Time.getTime();
             dt = endTime - beginTime;

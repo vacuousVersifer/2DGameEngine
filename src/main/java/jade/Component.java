@@ -1,7 +1,7 @@
 package jade;
 
 public abstract class Component {
-    protected GameObject gameObject = null;
+    protected transient GameObject gameObject = null;
 
     public void update(float dt) {
 

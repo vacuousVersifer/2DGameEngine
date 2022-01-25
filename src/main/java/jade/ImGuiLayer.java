@@ -145,7 +145,7 @@ public class ImGuiLayer {
         fontConfig.setGlyphRanges(fontAtlas.getGlyphRangesDefault());
 ;
         fontConfig.setPixelSnapH(true);
-        fontAtlas.addFontFromFileTTF("assets/fonts/montserrat.ttf", 32, fontConfig);
+        fontAtlas.addFontFromFileTTF("assets/fonts/montserrat.ttf", 24, fontConfig);
 
         fontConfig.destroy(); // After all fonts were added we don't need this config more
 
@@ -157,13 +157,13 @@ public class ImGuiLayer {
     }
 
     public void update(float dt, Scene currentScene) {
-//        startFrame(dt);
+        startFrame(dt);
 
-//        ImGui.newFrame();
-//        currentScene.sceneImGui();
-//        ImGui.render();
+        ImGui.newFrame();
+        currentScene.sceneImGui();
+        ImGui.render();
 
-//        endFrame();
+        endFrame();
     }
 
     private void startFrame(final float deltaTime) {

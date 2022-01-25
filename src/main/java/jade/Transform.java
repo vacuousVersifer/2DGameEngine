@@ -31,6 +31,14 @@ public class Transform {
         return this.scale;
     }
 
+    public void setPosition(Vector2f position) {
+        this.position = position;
+    }
+
+    public void setScale(Vector2f scale) {
+        this.scale = scale;
+    }
+
     public Transform copy() {
         return new Transform(new Vector2f(this.position), new Vector2f(this.scale));
     }
